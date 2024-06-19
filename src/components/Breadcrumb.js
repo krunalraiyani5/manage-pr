@@ -15,7 +15,7 @@ const Breadcrumb = () => {
 
   return (
     <nav className="bg-gray-200 p-4">
-      <ol className="list-none flex">
+      <ol className="container mx-auto list-none flex">
         <li className="flex items-center">
           <Link href="/" className="text-gray-500 font-bold">
             Home
