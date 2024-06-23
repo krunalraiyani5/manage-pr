@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/app/lib/db";
-import { ModuleModel } from "@/app/lib/model/module";
+import { QuestionModel } from "@/app/lib/model/question";
 
-// GET all modules
+// GET all questions
 export async function GET() {
   await dbConnect();
   try {
-    const modules = await ModuleModel.find();
-    return NextResponse.json({ data: modules }, { status: 200 });
+    const questions = await QuestionModel.find().populate("stepperId");
+    return NextResponse.json({ data: questions }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { message: error.message || "Something went wrong" },
@@ -16,13 +16,13 @@ export async function GET() {
   }
 }
 
-// POST a new module
+// POST a new question
 export async function POST(req) {
   const body = await req.json();
   await dbConnect();
   try {
-    const module = new ModuleModel(body);
-    const result = await module.save();
+    const question = new QuestionModel(body);
+    const result = await question.save();
     return NextResponse.json({ data: result }, { status: 201 });
   } catch (error) {
     return NextResponse.json(
