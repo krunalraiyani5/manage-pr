@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const EditCardModal = ({
   isOpen,
@@ -10,10 +10,16 @@ const EditCardModal = ({
   const [name, setName] = useState(initialName || "");
   const [logo, setLogo] = useState(initialLogo || "");
 
+  console.log(initialName, initialLogo, "checkInitialValues");
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onEditCard(name, logo);
   };
+  useEffect(() => {
+    setName(initialName);
+    setLogo(initialLogo);
+  }, [initialName, initialLogo]);
 
   return (
     <div
