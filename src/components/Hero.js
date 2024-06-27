@@ -1,13 +1,15 @@
+"use client";
 import React, { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import AddCardModal from "./AddCardModal";
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import EditCardModal from "./EditCardModal";
 
-const Hero = () => {
+const Hero = ({ data }) => {
+  console.log(data, "cehckdata");
   const [editMode, setEditMode] = useState(false);
   const [deleteMode, setDeleteMode] = useState(false);
-  const [cardList, setCardList] = useState([]);
+  const [cardList, setCardList] = useState(data || []);
   const cardsRef = useRef([]);
   cardsRef.current = [];
 
@@ -19,7 +21,10 @@ const Hero = () => {
     useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [cardToDeleteIndex, setCardToDeleteIndex] = useState(null);
-  const [cardToEditIndex, setCardToEditIndex] = useState(null);
+  const [cardToEditIndex, setCardToEditIndex] = useState({
+    name: "",
+    logo: "",
+  });
 
   const addToRefs = (el) => {
     if (el && !cardsRef.current.includes(el)) {
@@ -70,7 +75,7 @@ const Hero = () => {
   };
 
   useEffect(() => {
-    if (cardList.length > 0) {
+    if (data.length > 0) {
       const tl = gsap.timeline({
         defaults: {
           duration: 0.8,
@@ -104,7 +109,7 @@ const Hero = () => {
           "-=0.5"
         );
     }
-  }, [cardList]);
+  }, [data]);
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -126,6 +131,20 @@ const Hero = () => {
     }
   }, [isMenuOpen]);
 
+  async function getData() {
+    try {
+      const response = await fetch("/api/modules");
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      setCardList(data?.data);
+    } catch (error) {
+      console.error("Fetch error:", error);
+      throw error;
+    }
+  }
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -141,55 +160,72 @@ const Hero = () => {
     setCardToDeleteIndex(index);
   };
 
-  const openEditModal = (index) => {
+  const openEditModal = (card) => {
     setIsEditModalOpen(true);
-    setCardToEditIndex(index);
+    setCardToEditIndex(card);
   };
 
-  const handleAddCard = (name, logo) => {
+  const handleAddCard = async (name, logo) => {
     setIsAddModalOpen(false);
+
     // Logic to add the card
-  };
-
-  const handleConfirmDelete = () => {
-    if (cardToDeleteIndex !== null) {
-      setCardList((prevCards) =>
-        prevCards.filter((_, idx) => idx !== cardToDeleteIndex)
-      );
-      setIsConfirmDeleteModalOpen(false);
-    }
-  };
-
-  const handleEditCard = (updatedName, updatedLogo) => {
-    if (cardToEditIndex !== null) {
-      setCardList((prevCards) =>
-        prevCards.map((card, idx) =>
-          idx === cardToEditIndex
-            ? { ...card, title: updatedName, imageUrl: updatedLogo }
-            : card
-        )
-      );
-      setIsEditModalOpen(false);
-    }
-  };
-
-  const fetchData = async () => {
     try {
-      const response = await fetch("/api/modules");
+      const response = await fetch("/api/modules", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, logo }),
+      });
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      const data = await response.json();
-      setCardList(data?.data);
+      getData();
     } catch (error) {
       console.error("Fetch error:", error);
       throw error;
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const handleConfirmDelete = () => {
+    if (cardToDeleteIndex !== null) {
+      // setCardList((prevCards) =>
+      //   prevCards.filter((_, idx) => idx !== cardToDeleteIndex)
+      // );
+      setIsConfirmDeleteModalOpen(false);
+    }
+  };
+
+  const handleEditCard = async (updatedName, updatedLogo) => {
+    if (cardToEditIndex?._id !== null) {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/modules/${cardToEditIndex?._id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name: updatedName, logo: updatedLogo }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        getData();
+      } catch (error) {
+        console.error("Fetch error:", error);
+        throw error;
+      }
+      setIsEditModalOpen(false);
+    }
+  };
+
+  console.log(cardToEditIndex, "cardToEditIndex");
 
   return (
     <section className="h-full relative flex flex-col gap-12 items-center justify-center">
@@ -310,59 +346,59 @@ const Hero = () => {
       </div>
 
       <div className="w-full flex flex-wrap justify-center gap-4">
-        {cardList.map((card, index) => (
-          <div
-            key={index}
-            ref={addToRefs}
-            className="bg-white rounded-lg shadow-lg p-4 flex flex-col items-center justify-center w-48 h-48 relative">
-            <img
-              src={card.imageUrl}
-              alt={card.title}
-              className="w-full h-full object-cover rounded-md"
-            />
-            <h3 className="mt-2 text-center">{card.title}</h3>
-            {(editMode || deleteMode) && (
-              <div className="absolute top-2 right-2 flex gap-2">
-                {editMode && (
-                  <button
-                    onClick={() => openEditModal(index)}
-                    className="bg-blue-500 text-white p-1 rounded-full shadow-md hover:bg-blue-700 focus:outline-none">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="size-4">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M16.862 3.487a2.625 2.625 0 0 1 3.705 3.706L7.5 20.261 3 21l.738-4.5L16.862 3.487z"
-                      />
-                    </svg>
-                  </button>
-                )}
-                {deleteMode && (
-                  <button
-                    onClick={() => openConfirmDeleteModal(index)}
-                    className="bg-red-500 text-white p-1 rounded-full shadow-md hover:bg-red-700 focus:outline-none">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="size-4">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M9.75 9.75v9m4.5-9v9m-9 0h13.5m-12-10.5h10.5m-8.25 0v-1.5a2.25 2.25 0 1 1 4.5 0v1.5"
-                      />
-                    </svg>
-                  </button>
-                )}
-              </div>
-            )}
+        {cardList?.map((card, index) => (
+          <div key={index} ref={addToRefs} className="">
+            {console.log(card, "checkCard")}
+            <div className="bg-white rounded-lg shadow-lg p-4 flex flex-col items-center justify-center relativem cursor-pointer transform transition-transform hover:!scale-105">
+              <img
+                src={card.logo}
+                alt={card.name}
+                className="w-28 h-28 object-cover"
+              />
+              {(editMode || deleteMode) && (
+                <div className="absolute top-2 right-2 flex gap-2">
+                  {editMode && (
+                    <button
+                      onClick={() => openEditModal(card)}
+                      className="bg-blue-500 text-white p-1 rounded-full shadow-md hover:bg-blue-700 focus:outline-none">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="size-4">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M16.862 3.487a2.625 2.625 0 0 1 3.705 3.706L7.5 20.261 3 21l.738-4.5L16.862 3.487z"
+                        />
+                      </svg>
+                    </button>
+                  )}
+                  {deleteMode && (
+                    <button
+                      onClick={() => openConfirmDeleteModal(index)}
+                      className="bg-red-500 text-white p-1 rounded-full shadow-md hover:bg-red-700 focus:outline-none">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="size-4">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M9.75 9.75v9m4.5-9v9m-9 0h13.5m-12-10.5h10.5m-8.25 0v-1.5a2.25 2.25 0 1 1 4.5 0v1.5"
+                        />
+                      </svg>
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+            <h3 className="mt-4 text-center text-lg">{card.name}</h3>
           </div>
         ))}
       </div>
@@ -381,6 +417,8 @@ const Hero = () => {
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
         onEditCard={handleEditCard}
+        initialName={cardToEditIndex?.name}
+        initialLogo={cardToEditIndex?.logo}
       />
     </section>
   );
