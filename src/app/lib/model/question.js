@@ -8,6 +8,7 @@ const questionSchema = new mongoose.Schema({
     required: true,
   },
   type: { type: String, enum: ["notes", "problem"], required: true },
+  title: { type: String, required: true },
   content: { type: String, required: true },
 });
 

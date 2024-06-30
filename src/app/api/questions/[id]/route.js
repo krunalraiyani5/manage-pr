@@ -17,6 +17,7 @@ export async function PUT(req, { params }) {
     question.stepperId = body.stepperId || question.stepperId;
     question.type = body.type || question.type;
     question.content = body.content || question.content;
+    question.title = body.title || question.title;
     const updatedQuestion = await question.save();
     return NextResponse.json(updatedQuestion, { status: 200 });
   } catch (error) {

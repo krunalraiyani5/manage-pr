@@ -8,6 +8,7 @@ const stepperSchema = new mongoose.Schema({
     required: true,
   },
   name: { type: String, required: true },
+  order: { type: Number, required: true },
   status: {
     type: String,
     enum: ["complete", "pending", "problem"],

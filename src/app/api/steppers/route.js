@@ -6,7 +6,9 @@ import { StepperModel } from "@/app/lib/model/stepper";
 export async function GET() {
   await dbConnect();
   try {
-    const steppers = await StepperModel.find().populate("companyId");
+    const steppers = await StepperModel.find()
+      .populate("companyId")
+      .sort({ order: 1 });
     return NextResponse.json({ data: steppers }, { status: 200 });
   } catch (error) {
     return NextResponse.json(

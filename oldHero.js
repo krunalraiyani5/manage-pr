@@ -149,8 +149,7 @@ const Hero = () => {
           position: "fixed",
           zIndex: -1,
           visibility: "hidden",
-        }}
-      >
+        }}>
         {/* Placeholder div, adjust as per your layout */}
       </div>
       <div className="hero-title">
@@ -165,8 +164,7 @@ const Hero = () => {
         <button
           onClick={toggleMenu}
           ref={menuButtonRef}
-          className="bg-[#009F69] p-4 rounded-full shadow-md hover:bg-[#007f55] focus:outline-none z-10"
-        >
+          className="bg-[#009F69] p-4 rounded-full shadow-md hover:bg-[#007f55] focus:outline-none z-10">
           <span className="block w-5 h-0.5 bg-white mb-1"></span>
           <span className="block w-5 h-0.5 bg-white"></span>
         </button>
@@ -174,22 +172,19 @@ const Hero = () => {
           <button
             onClick={toggleModel}
             className="menu-item bg-gray-200 px-4 py-2 rounded-md shadow-md hover:bg-gray-300 focus:outline-none opacity-0 transform -translate-y-5"
-            ref={(el) => (menuItemsRef.current[0] = el)}
-          >
+            ref={(el) => (menuItemsRef.current[0] = el)}>
             Add
           </button>
           <button
             onClick={toggleEditMode}
             className="menu-item bg-gray-200 px-4 py-2 rounded-md shadow-md hover:bg-gray-300 focus:outline-none opacity-0 transform -translate-y-5"
-            ref={(el) => (menuItemsRef.current[1] = el)}
-          >
+            ref={(el) => (menuItemsRef.current[1] = el)}>
             Edit
           </button>
           <button
             onClick={toggleEditMode}
             className="menu-item bg-gray-200 px-4 py-2 rounded-md shadow-md hover:bg-gray-300 focus:outline-none opacity-0 transform -translate-y-5"
-            ref={(el) => (menuItemsRef.current[2] = el)}
-          >
+            ref={(el) => (menuItemsRef.current[2] = el)}>
             {editMode ? "Done" : "Delete"}
           </button>
         </div>
@@ -201,8 +196,7 @@ const Hero = () => {
             key={card.id}
             ref={addToRefs}
             onClick={cardClick}
-            className="relative flex flex-col justify-center items-center gap-6"
-          >
+            className="relative flex flex-col justify-center items-center gap-6">
             <div className="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer transform transition-transform hover:scale-110">
               <img
                 src={card.imageUrl}
@@ -212,8 +206,7 @@ const Hero = () => {
               {editMode && (
                 <button
                   className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600 focus:outline-none"
-                  onClick={() => handleRemoveCard(index)}
-                >
+                  onClick={() => handleRemoveCard(index)}>
                   X
                 </button>
               )}

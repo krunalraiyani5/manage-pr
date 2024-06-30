@@ -1,11 +1,11 @@
+"use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 const Breadcrumb = () => {
   const pathName = usePathname();
   const pathnames = pathName.split("/").filter((x) => x);
 
-  // Function to convert dash-case to Camel Case with spaces
   const formatRouteName = (pathname) => {
     return pathname
       .split("-")
@@ -31,11 +31,10 @@ const Breadcrumb = () => {
           return (
             <li key={pathname} className="flex items-center">
               <Link
-                href={routeTo}
+                href={routeTo + window.location.search}
                 className={`font-bold ${
                   isLast ? "text-black" : "text-gray-500 "
-                }`}
-              >
+                }`}>
                 {formattedName}
               </Link>
               {!isLast && <span className="mx-2 font-bold">{">"}</span>}

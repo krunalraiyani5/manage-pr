@@ -18,6 +18,7 @@ export async function PUT(req, { params }) {
     stepper.companyId = body.companyId || stepper.companyId;
     stepper.status = body.status || stepper.status;
     stepper.name = body.name || stepper.name;
+    stepper.order = body.order || stepper.order;
     const updatedStepper = await stepper.save();
     return NextResponse.json(updatedStepper, { status: 200 });
   } catch (error) {
@@ -62,9 +63,13 @@ export async function GET(req, { params }) {
       );
     }
 
+    let companyId = new mongoose.Types.ObjectId(id);
+
     const steppers = await StepperModel.aggregate([
       {
-        $match: { _id: new mongoose.Types.ObjectId(id) },
+        $match: {
+          companyId: companyId, // Filter steppers by company ID
+        },
       },
       {
         $lookup: {
@@ -75,8 +80,44 @@ export async function GET(req, { params }) {
         },
       },
       {
-        $addFields: {
-          questionCount: { $size: "$questions" },
+        $group: {
+          _id: "$companyId",
+          steppers: {
+            $push: {
+              _id: "$_id",
+              name: "$name",
+              order: "$order",
+              status: "$status",
+              questions: "$questions",
+              questionCount: { $size: "$questions" },
+              // Add any other fields you want to include here
+            },
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: "companies",
+          localField: "_id",
+          foreignField: "_id",
+          as: "companyInfo",
+        },
+      },
+      {
+        $unwind: "$companyInfo",
+      },
+      {
+        $project: {
+          _id: 0, // Exclude _id field from the output
+          companyId: "$_id",
+          steppers: {
+            $cond: {
+              if: { $isArray: "$steppers" },
+              then: "$steppers",
+              else: [], // Return empty array if no steppers exist
+            },
+          },
+          companyInfo: "$companyInfo",
         },
       },
     ]);

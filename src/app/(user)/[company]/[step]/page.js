@@ -1,15 +1,25 @@
-"use client";
-import handler from "@/app/api/route";
-import Breadcrumb from "@/components/Breadcrumb";
 import DynamicStepper from "@/components/DynamicStepper";
 import React from "react";
 
-const page = () => {
-  handler();
+async function getData(id) {
+  try {
+    const response = await fetch(`http://localhost:3000/api/steppers/${id}`, {
+      cache: "no-store",
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Fetch error:", error);
+    throw error;
+  }
+}
+
+const page = async ({ searchParams }) => {
+  const data = await getData(searchParams?.companyId);
   return (
     <div>
-      <Breadcrumb />
-      <DynamicStepper />
+      <DynamicStepper data={data?.data} />
     </div>
   );
 };
