@@ -3,9 +3,12 @@ import React from "react";
 
 async function getData(id) {
   try {
-    const response = await fetch(`http://localhost:3000/api/companies/${id}`, {
-      cache: "no-store",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API}/api/companies/${id}`,
+      {
+        cache: "no-store",
+      }
+    );
 
     const data = await response.json();
     return data;

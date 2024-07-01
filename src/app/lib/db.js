@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export const connectionString = "mongodb://localhost:27017/manage-pr";
+export const connectionString = process.env.NEXT_MONGO_URI;
 
 let cached = global.mongoose;
 
