@@ -5,6 +5,7 @@ import ManageStepModal from "./ManageStepModal";
 import { useSearchParams } from "next/navigation";
 import AddQuestionModal from "./AddQuestionModal";
 import EditQuestionModal from "./EditQuestionModal";
+import ConfirmDeleteModal from "./ConfirmDeleteModal";
 
 const DynamicStepper = ({ data }) => {
   const searchParams = useSearchParams();
@@ -16,6 +17,10 @@ const DynamicStepper = ({ data }) => {
   const [steps, setsteps] = useState(data?.steppers || []);
   const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
   const [isEditQuestionModal, setIsEditQuestionModal] = useState(false);
+  const [editQuestionData, setEditQuestionData] = useState({});
+  const [deleteQuestionData, setDeleteQuestionData] = useState({});
+  const [isConfirmDeleteModalOpen, setIsConfirmDeleteModalOpen] =
+    useState(false);
 
   const containerRef = useRef(null);
 
@@ -35,8 +40,6 @@ const DynamicStepper = ({ data }) => {
   }
 
   const handleAddQuestion = async (title, content) => {
-    console.log(steps[activeStep], "checkTitle");
-
     if (title && content && steps[activeStep]?._id) {
       try {
         const response = await fetch("/api/questions", {
@@ -61,29 +64,50 @@ const DynamicStepper = ({ data }) => {
   };
 
   const handleEditQuestion = async (title, content) => {
-    console.log(steps[activeStep], "checkTitle");
-
-    // if (title && content && steps[activeStep]?._id) {
-    //   try {
-    //     const response = await fetch("/api/questions", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({
-    //         stepperId: steps[activeStep]?._id,
-    //         title,
-    //         content,
-    //         type: isNote ? "notes" : "problem",
-    //       }),
-    //     });
-    //     getData();
-    //   } catch (error) {
-    //     console.error("Fetch error:", error);
-    //   }
-    // }
+    if (title && content && editQuestionData?._id && steps[activeStep]?._id) {
+      try {
+        const response = await fetch(
+          `/api/questions/${editQuestionData?._id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              stepperId: steps[activeStep]?._id,
+              title,
+              content,
+              type: editQuestionData?.type,
+            }),
+          }
+        );
+        getData();
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    }
 
     setIsEditQuestionModal(false);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (deleteQuestionData?._id) {
+      try {
+        const response = await fetch(
+          `/api/questions/${deleteQuestionData?._id}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        getData();
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+      setIsConfirmDeleteModalOpen(false);
+    }
   };
 
   useEffect(() => {
@@ -278,6 +302,10 @@ const DynamicStepper = ({ data }) => {
                     </p>
                     <div className="flex items-center gap-2 transform -translate-x-2 translate-y-2">
                       <button
+                        onClick={() => {
+                          setEditQuestionData(item);
+                          setIsEditQuestionModal(true);
+                        }}
                         className={`p-2 bg-gray-200 rounded-md shadow-md hover:bg-gray-300 focus:outline-none`}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -294,6 +322,10 @@ const DynamicStepper = ({ data }) => {
                         </svg>
                       </button>
                       <button
+                        onClick={() => {
+                          setDeleteQuestionData(item);
+                          setIsConfirmDeleteModalOpen(true);
+                        }}
                         className={`p-2 bg-gray-200 rounded-md shadow-md hover:bg-gray-300 focus:outline-none`}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -333,7 +365,15 @@ const DynamicStepper = ({ data }) => {
       <EditQuestionModal
         isOpen={isEditQuestionModal}
         onClose={() => setIsEditQuestionModal(false)}
-        onEditQuestion={handleEditQuestion}
+        handleEditQuestion={handleEditQuestion}
+        initialText={editQuestionData?.content}
+        initialTitle={editQuestionData?.title}
+      />
+
+      <ConfirmDeleteModal
+        isOpen={isConfirmDeleteModalOpen}
+        onClose={() => setIsConfirmDeleteModalOpen(false)}
+        onConfirmDelete={handleConfirmDelete}
       />
     </div>
   );

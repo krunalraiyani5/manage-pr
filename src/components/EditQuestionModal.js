@@ -1,15 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const EditQuestionModal = ({ isOpen, onClose, handleEditQuestion }) => {
+const EditQuestionModal = ({
+  isOpen,
+  onClose,
+  handleEditQuestion,
+  initialTitle,
+  initialText,
+}) => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     handleEditQuestion(title, text);
-    setTitle("");
-    setText("");
   };
+
+  useEffect(() => {
+    setTitle(initialTitle);
+    setText(initialText);
+  }, [initialText, initialTitle]);
 
   return (
     <div
@@ -32,7 +41,7 @@ const EditQuestionModal = ({ isOpen, onClose, handleEditQuestion }) => {
             <div className="sm:flex sm:items-start">
               <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                 <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
-                  Add Question
+                  Edit Question
                 </h3>
                 <div className="mb-4">
                   <label
@@ -70,7 +79,7 @@ const EditQuestionModal = ({ isOpen, onClose, handleEditQuestion }) => {
               onClick={handleSubmit}
               type="button"
               className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#009F69] text-base font-medium text-white hover:bg-[#007f55] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009F69] sm:ml-3 sm:w-auto sm:text-sm">
-              Add
+              Done
             </button>
             <button
               onClick={onClose}

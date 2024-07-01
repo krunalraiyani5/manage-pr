@@ -350,13 +350,16 @@ const CompanyGrid = ({ data }) => {
               style={{ transitionDuration: "0.3s" }}>
               {/* Left Side: Company Image and Details */}
               <div className={`p-4 ${isGridView ? "" : "sm:w-2/3"}`}>
-                <img
-                  src={company?.logo}
-                  alt={`Company ${company?.name}`}
+                <div
                   className={`w-full ${
                     isGridView ? "h-32" : "h-52"
-                  } object-cover`}
-                />
+                  } object-cover`}>
+                  <img
+                    src={company?.logo}
+                    alt={`Company ${company?.name}`}
+                    className={`h-full w-full object-contain`}
+                  />
+                </div>
                 <h2 className="text-gray-800 font-bold text-lg mt-4">
                   {company?.name}
                 </h2>
@@ -412,8 +415,10 @@ const CompanyGrid = ({ data }) => {
 
               {/* Right Side: Milestones or Stepper (Hidden in Grid View) */}
               {!isGridView && (
-                <div className="bg-gray-100 p-4 sm:w-1/3">
-                  <h3 className="text-gray-700 font-medium mb-2">Milestones</h3>
+                <div className="bg-gray-100 p-4 px-6 sm:w-1/3">
+                  <h3 className="text-gray-700 text-lg font-medium mb-4">
+                    Progress
+                  </h3>
                   <div className="space-y-2">
                     {company?.steppers?.map((milestone) => (
                       <div
@@ -428,7 +433,7 @@ const CompanyGrid = ({ data }) => {
                               : "bg-red-500"
                           }`}
                         />
-                        <p className="text-sm">{milestone?.name}</p>
+                        <p className="text-md">{milestone?.name}</p>
                       </div>
                     ))}
                   </div>

@@ -364,11 +364,11 @@ const Hero = ({ data }) => {
                 `/${formatRouteName(card?.name)}?modultId=${card?._id}`
               );
             }}>
-            <div className="bg-white rounded-lg shadow-lg p-4 flex flex-col items-center justify-center relative cursor-pointer transform transition-transform hover:!scale-105">
+            <div className="bg-white h-36 w-36 rounded-lg shadow-lg p-4 flex flex-col items-center justify-center relative cursor-pointer transform transition-transform hover:!scale-105">
               <img
                 src={card.logo}
                 alt={card.name}
-                className="w-28 h-28 object-cover"
+                className="h-full w-full object-contain"
               />
               {(editMode || deleteMode) && (
                 <div className="absolute top-2 right-2 flex gap-2">

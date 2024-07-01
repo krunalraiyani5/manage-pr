@@ -14,7 +14,7 @@ const Navbar = () => {
       <nav className="bg-gray-900 p-4">
         <div className="container mx-auto flex justify-between items-center">
           <Link href={"/"} className="text-white text-lg font-bold">
-            MyNavbar
+            MangePr v1
           </Link>
           <div className="md:hidden">
             <button
@@ -34,7 +34,7 @@ const Navbar = () => {
               </svg>
             </button>
           </div>
-          <ul className="hidden md:flex space-x-4">
+          {/* <ul className="hidden md:flex space-x-4">
             <li>
               <Link href="#home" className="text-white hover:text-gray-300">
                 Home
@@ -55,7 +55,7 @@ const Navbar = () => {
                 Contact
               </Link>
             </li>
-          </ul>
+          </ul> */}
         </div>
       </nav>
 
