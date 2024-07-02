@@ -5,8 +5,6 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
   const searchParams = useSearchParams();
   const companyId = searchParams.get("companyId");
 
-  console.log(companyId, "companyId");
-
   const [name, setName] = useState("");
   const [order, setOrder] = useState("");
   const [status, setStatus] = useState("pending");
@@ -76,13 +74,12 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
     }
   };
 
-  console.log(steps, "steps");
-
   return (
     <div
       className={`fixed inset-0 z-50 overflow-y-auto ${
         isOpen ? "block" : "hidden"
-      }`}>
+      }`}
+    >
       <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div className="fixed inset-0 transition-opacity" aria-hidden="true">
           <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
@@ -90,7 +87,8 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
 
         <span
           className="hidden sm:inline-block sm:align-middle sm:h-screen"
-          aria-hidden="true">
+          aria-hidden="true"
+        >
           &#8203;
         </span>
 
@@ -111,7 +109,8 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
                         tab === "add"
                           ? "bg-[#009F69] text-white"
                           : "text-gray-700"
-                      } px-4 py-2 mr-2 rounded-md focus:outline-none`}>
+                      } px-4 py-2 mr-2 rounded-md focus:outline-none`}
+                    >
                       Add
                     </button>
                     <button
@@ -120,7 +119,8 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
                         tab === "edit"
                           ? "bg-[#009F69] text-white"
                           : "text-gray-700"
-                      } px-4 py-2 mr-2 rounded-md focus:outline-none`}>
+                      } px-4 py-2 mr-2 rounded-md focus:outline-none`}
+                    >
                       Edit
                     </button>
                     <button
@@ -129,7 +129,8 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
                         tab === "delete"
                           ? "bg-[#009F69] text-white"
                           : "text-gray-700"
-                      } px-4 py-2 rounded-md focus:outline-none`}>
+                      } px-4 py-2 rounded-md focus:outline-none`}
+                    >
                       Delete
                     </button>
                   </nav>
@@ -160,7 +161,8 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
                                 status === "pending"
                                   ? "text-green-600 border-green-600"
                                   : "text-gray-900 dark:text-gray-300"
-                              } peer-checked:border-green-600 peer-checked:text-green-600`}>
+                              } peer-checked:border-green-600 peer-checked:text-green-600`}
+                            >
                               Pending
                             </label>
                           </div>
@@ -182,7 +184,8 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
                                 status === "complete"
                                   ? "text-green-600 border-green-600"
                                   : "text-gray-900 dark:text-gray-300"
-                              } peer-checked:border-green-600 peer-checked:text-green-600`}>
+                              } peer-checked:border-green-600 peer-checked:text-green-600`}
+                            >
                               Complete
                             </label>
                           </div>
@@ -204,7 +207,8 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
                                 status === "problem"
                                   ? "text-green-600 border-green-600"
                                   : "text-gray-900 dark:text-gray-300"
-                              } peer-checked:border-green-600 peer-checked:text-green-600`}>
+                              } peer-checked:border-green-600 peer-checked:text-green-600`}
+                            >
                               Problem
                             </label>
                           </div>
@@ -214,7 +218,8 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
                     <div className="mb-4">
                       <label
                         htmlFor="name"
-                        className="block text-sm font-medium text-gray-700">
+                        className="block text-sm font-medium text-gray-700"
+                      >
                         Name
                       </label>
                       <input
@@ -228,7 +233,8 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
                     <div className="mb-4">
                       <label
                         htmlFor="order"
-                        className="block text-sm font-medium text-gray-700">
+                        className="block text-sm font-medium text-gray-700"
+                      >
                         Order
                       </label>
                       <input
@@ -242,13 +248,15 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
                     <div className="flex justify-end">
                       <button
                         type="submit"
-                        className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#009F69] text-base font-medium text-white hover:bg-[#007f55] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009F69] sm:text-sm">
+                        className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#009F69] text-base font-medium text-white hover:bg-[#007f55] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009F69] sm:text-sm"
+                      >
                         Add
                       </button>
                       <button
                         onClick={onClose}
                         type="button"
-                        className="ml-2 inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009F69] sm:text-sm">
+                        className="ml-2 inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009F69] sm:text-sm"
+                      >
                         Cancel
                       </button>
                     </div>
@@ -273,14 +281,16 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
                                   setStatus(item?.status);
                                   setOrder(item?.order);
                                 }}
-                                className={`p-2 bg-gray-200 text-[#009F69] border-2 border-[#009F69] rounded-md shadow-md hover:bg-gray-300 focus:outline-none`}>
+                                className={`p-2 bg-gray-200 text-[#009F69] border-2 border-[#009F69] rounded-md shadow-md hover:bg-gray-300 focus:outline-none`}
+                              >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
                                   viewBox="0 0 24 24"
                                   strokeWidth={1.5}
                                   stroke="currentColor"
-                                  className="size-4">
+                                  className="size-4"
+                                >
                                   <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
@@ -298,7 +308,8 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
                               onClose();
                             }}
                             type="button"
-                            className="ml-2 inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009F69] sm:text-sm">
+                            className="ml-2 inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009F69] sm:text-sm"
+                          >
                             Cancel
                           </button>
                         </div>
@@ -327,7 +338,8 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
                                     status === "pending"
                                       ? "text-green-600 border-green-600"
                                       : "text-gray-900 dark:text-gray-300"
-                                  } peer-checked:border-green-600 peer-checked:text-green-600`}>
+                                  } peer-checked:border-green-600 peer-checked:text-green-600`}
+                                >
                                   Pending
                                 </label>
                               </div>
@@ -349,7 +361,8 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
                                     status === "complete"
                                       ? "text-green-600 border-green-600"
                                       : "text-gray-900 dark:text-gray-300"
-                                  } peer-checked:border-green-600 peer-checked:text-green-600`}>
+                                  } peer-checked:border-green-600 peer-checked:text-green-600`}
+                                >
                                   Complete
                                 </label>
                               </div>
@@ -371,7 +384,8 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
                                     status === "problem"
                                       ? "text-green-600 border-green-600"
                                       : "text-gray-900 dark:text-gray-300"
-                                  } peer-checked:border-green-600 peer-checked:text-green-600`}>
+                                  } peer-checked:border-green-600 peer-checked:text-green-600`}
+                                >
                                   Problem
                                 </label>
                               </div>
@@ -381,7 +395,8 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
                         <div className="mb-4">
                           <label
                             htmlFor="name"
-                            className="block text-sm font-medium text-gray-700">
+                            className="block text-sm font-medium text-gray-700"
+                          >
                             Name
                           </label>
                           <input
@@ -395,7 +410,8 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
                         <div className="mb-4">
                           <label
                             htmlFor="order"
-                            className="block text-sm font-medium text-gray-700">
+                            className="block text-sm font-medium text-gray-700"
+                          >
                             Order
                           </label>
                           <input
@@ -409,7 +425,8 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
                         <div className="flex justify-end">
                           <button
                             type="submit"
-                            className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#009F69] text-base font-medium text-white hover:bg-[#007f55] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009F69] sm:text-sm">
+                            className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#009F69] text-base font-medium text-white hover:bg-[#007f55] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009F69] sm:text-sm"
+                          >
                             Done
                           </button>
                           <button
@@ -418,7 +435,8 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
                               onClose();
                             }}
                             type="button"
-                            className="ml-2 inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009F69] sm:text-sm">
+                            className="ml-2 inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009F69] sm:text-sm"
+                          >
                             Cancel
                           </button>
                         </div>
@@ -441,7 +459,8 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
                           />
                           <label
                             htmlFor={item?._id}
-                            className="inline-flex items-center justify-between w-full cursor-pointer peer-checked:text-red-600 hover:text-gray-600 dark:text-gray-400">
+                            className="inline-flex items-center justify-between w-full cursor-pointer peer-checked:text-red-600 hover:text-gray-600 dark:text-gray-400"
+                          >
                             {item?.name}
                           </label>
                         </div>
@@ -451,13 +470,15 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
                     <div className="flex justify-end">
                       <button
                         type="submit"
-                        className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#009F69] text-base font-medium text-white hover:bg-[#007f55] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009F69] sm:text-sm">
+                        className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#009F69] text-base font-medium text-white hover:bg-[#007f55] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009F69] sm:text-sm"
+                      >
                         Delete
                       </button>
                       <button
                         onClick={onClose}
                         type="button"
-                        className="ml-2 inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009F69] sm:text-sm">
+                        className="ml-2 inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009F69] sm:text-sm"
+                      >
                         Cancel
                       </button>
                     </div>

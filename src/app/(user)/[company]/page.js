@@ -20,7 +20,6 @@ async function getData(id) {
 
 const Page = async ({ searchParams }) => {
   const data = await getData(searchParams?.modultId);
-  console.log(data);
   return (
     <div>
       <CompanyGrid data={data?.data} />

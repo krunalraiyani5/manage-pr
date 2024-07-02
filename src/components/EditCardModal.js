@@ -10,8 +10,6 @@ const EditCardModal = ({
   const [name, setName] = useState(initialName || "");
   const [logo, setLogo] = useState(initialLogo || "");
 
-  console.log(initialName, initialLogo, "checkInitialValues");
-
   const handleSubmit = (e) => {
     e.preventDefault();
     onEditCard(name, logo);
@@ -25,7 +23,8 @@ const EditCardModal = ({
     <div
       className={`fixed inset-0 z-50 overflow-y-auto ${
         isOpen ? "block" : "hidden"
-      }`}>
+      }`}
+    >
       <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div className="fixed inset-0 transition-opacity" aria-hidden="true">
           <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
@@ -33,7 +32,8 @@ const EditCardModal = ({
 
         <span
           className="hidden sm:inline-block sm:align-middle sm:h-screen"
-          aria-hidden="true">
+          aria-hidden="true"
+        >
           &#8203;
         </span>
 
@@ -47,7 +47,8 @@ const EditCardModal = ({
                 <div className="mb-4">
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-gray-700">
+                    className="block text-sm font-medium text-gray-700"
+                  >
                     Name
                   </label>
                   <input
@@ -61,7 +62,8 @@ const EditCardModal = ({
                 <div className="mb-4">
                   <label
                     htmlFor="logo"
-                    className="block text-sm font-medium text-gray-700">
+                    className="block text-sm font-medium text-gray-700"
+                  >
                     Logo URL
                   </label>
                   <input
@@ -79,13 +81,15 @@ const EditCardModal = ({
             <button
               onClick={handleSubmit}
               type="button"
-              className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#009F69] text-base font-medium text-white hover:bg-[#007f55] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009F69] sm:ml-3 sm:w-auto sm:text-sm">
+              className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#009F69] text-base font-medium text-white hover:bg-[#007f55] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009F69] sm:ml-3 sm:w-auto sm:text-sm"
+            >
               Save
             </button>
             <button
               onClick={onClose}
               type="button"
-              className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009F69] sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+              className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009F69] sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+            >
               Cancel
             </button>
           </div>

@@ -233,8 +233,6 @@ const Hero = ({ data }) => {
     }
   };
 
-  console.log(cardToEditIndex, "cardToEditIndex");
-
   return (
     <section className="h-full relative flex flex-col gap-12 items-center justify-center">
       <div className="hero-title">
@@ -248,14 +246,16 @@ const Hero = ({ data }) => {
       <div className="absolute top-20 right-4 flex flex-col items-center">
         <button
           onClick={toggleMenu}
-          className="bg-[#009F69] text-white p-4 rounded-full shadow-md hover:bg-[#007f55] focus:outline-none z-10">
+          className="bg-[#009F69] text-white p-4 rounded-full shadow-md hover:bg-[#007f55] focus:outline-none z-10"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="size-6">
+            className="size-6"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -267,14 +267,16 @@ const Hero = ({ data }) => {
           <button
             onClick={openAddModal}
             className="menu-item bg-gray-200 px-4 py-2 rounded-md shadow-md hover:bg-gray-300 focus:outline-none opacity-0 transform -translate-y-5"
-            ref={(el) => (menuItemsRef.current[0] = el)}>
+            ref={(el) => (menuItemsRef.current[0] = el)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="size-6">
+              className="size-6"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -285,7 +287,8 @@ const Hero = ({ data }) => {
           <button
             onClick={toggleEditMode}
             className="menu-item bg-gray-200 px-4 py-2 rounded-md shadow-md hover:bg-gray-300 focus:outline-none opacity-0 transform -translate-y-5"
-            ref={(el) => (menuItemsRef.current[1] = el)}>
+            ref={(el) => (menuItemsRef.current[1] = el)}
+          >
             {editMode ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -293,7 +296,8 @@ const Hero = ({ data }) => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-6">
+                className="size-6"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -307,7 +311,8 @@ const Hero = ({ data }) => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-6">
+                className="size-6"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -319,7 +324,8 @@ const Hero = ({ data }) => {
           <button
             onClick={toggleDeleteMode}
             className="menu-item bg-gray-200 px-4 py-2 rounded-md shadow-md hover:bg-gray-300 focus:outline-none opacity-0 transform -translate-y-5"
-            ref={(el) => (menuItemsRef.current[2] = el)}>
+            ref={(el) => (menuItemsRef.current[2] = el)}
+          >
             {deleteMode ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -327,7 +333,8 @@ const Hero = ({ data }) => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-6">
+                className="size-6"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -341,7 +348,8 @@ const Hero = ({ data }) => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-6">
+                className="size-6"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -363,7 +371,8 @@ const Hero = ({ data }) => {
               router.push(
                 `/${formatRouteName(card?.name)}?modultId=${card?._id}`
               );
-            }}>
+            }}
+          >
             <div className="bg-white h-36 w-36 rounded-lg shadow-lg p-4 flex flex-col items-center justify-center relative cursor-pointer transform transition-transform hover:!scale-105">
               <img
                 src={card.logo}
@@ -378,14 +387,16 @@ const Hero = ({ data }) => {
                         e.stopPropagation();
                         openEditModal(card);
                       }}
-                      className="bg-blue-500 text-white p-1 rounded-full shadow-md hover:bg-blue-700 focus:outline-none">
+                      className="bg-blue-500 text-white p-1 rounded-full shadow-md hover:bg-blue-700 focus:outline-none"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="size-4">
+                        className="size-4"
+                      >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -400,14 +411,16 @@ const Hero = ({ data }) => {
                         e.stopPropagation();
                         openConfirmDeleteModal(card);
                       }}
-                      className="bg-red-500 text-white p-1 rounded-full shadow-md hover:bg-red-700 focus:outline-none">
+                      className="bg-red-500 text-white p-1 rounded-full shadow-md hover:bg-red-700 focus:outline-none"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="size-4">
+                        className="size-4"
+                      >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
