@@ -145,7 +145,7 @@ const DynamicStepper = ({ data }) => {
       <div
         ref={containerRef}
         className="mx-auto rounded-lg shadow-lg overflow-hidden">
-        <div className="flex items-center justify-center gap-28 bg-white px-6 py-4 relative">
+        <div className="flex items-center justify-center gap-28 bg-white p-6 relative py-12">
           {steps?.map((step, index) => (
             <div
               key={index}
