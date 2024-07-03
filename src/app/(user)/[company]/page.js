@@ -21,7 +21,7 @@ async function getData(id) {
 const Page = async ({ searchParams }) => {
   const data = await getData(searchParams?.modultId);
   return (
-    <div>
+    <div className="container mx-auto">
       <CompanyGrid data={data?.data} />
     </div>
   );
