@@ -166,7 +166,7 @@ const CompanyGrid = ({ data }) => {
 
   return (
     <section className="bg-gray-200">
-      <div className="mx-20">
+      <div>
         <div className="sticky top-[4.2rem] z-50 flex justify-end mb-4 gap-4">
           <button
             className={`px-4 py-2 bg-white text-black rounded-md shadow-lg ${
