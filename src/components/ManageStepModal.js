@@ -1,5 +1,6 @@
 import { useSearchParams } from "next/navigation";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
   const searchParams = useSearchParams();
@@ -25,11 +26,13 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
           },
           body: JSON.stringify({ companyId, name, status, order }),
         });
+        toast.success("Added successfully");
         onClose();
         getData();
         setName("");
         setOrder("");
       } catch (error) {
+        toast.error("Something want wrong");
         console.error("Fetch error:", error);
       }
     }
@@ -46,11 +49,14 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
           },
           body: JSON.stringify({ companyId, name, status, order }),
         });
+        toast.success("Update successfully");
         onClose();
+        setSelectEdit(false);
         getData();
         setName("");
         setOrder("");
       } catch (error) {
+        toast.error("Something want wrong");
         console.error("Fetch error:", error);
       }
     }
@@ -66,9 +72,11 @@ const ManageStepModal = ({ isOpen, onClose, getData, steps }) => {
             "Content-Type": "application/json",
           },
         });
+        toast.success("Delete successfully");
         onClose();
         getData();
       } catch (error) {
+        toast.error("Something want wrong");
         console.error("Fetch error:", error);
       }
     }

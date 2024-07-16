@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import AddQuestionModal from "./AddQuestionModal";
 import EditQuestionModal from "./EditQuestionModal";
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
+import toast from "react-hot-toast";
 
 const DynamicStepper = ({ data }) => {
   const searchParams = useSearchParams();
@@ -34,6 +35,7 @@ const DynamicStepper = ({ data }) => {
       setResData(data?.data);
       setsteps(data?.data?.steppers);
     } catch (error) {
+      toast.error("Something want wrong");
       console.error("Fetch error:", error);
       throw error;
     }
@@ -54,8 +56,10 @@ const DynamicStepper = ({ data }) => {
             type: isNote ? "notes" : "problem",
           }),
         });
+        toast.success("Added successfully");
         getData();
       } catch (error) {
+        toast.error("Something want wrong");
         console.error("Fetch error:", error);
       }
     }
@@ -81,8 +85,10 @@ const DynamicStepper = ({ data }) => {
             }),
           }
         );
+        toast.success("Update successfully");
         getData();
       } catch (error) {
+        toast.error("Something want wrong");
         console.error("Fetch error:", error);
       }
     }
@@ -102,8 +108,10 @@ const DynamicStepper = ({ data }) => {
             },
           }
         );
+        toast.success("Delete successfully");
         getData();
       } catch (error) {
+        toast.error("Something want wrong");
         console.error("Fetch error:", error);
       }
       setIsConfirmDeleteModalOpen(false);
@@ -144,7 +152,8 @@ const DynamicStepper = ({ data }) => {
     <div className="container mx-auto px-4 py-8 pt-4">
       <div
         ref={containerRef}
-        className="mx-auto rounded-lg shadow-lg overflow-hidden">
+        className="mx-auto rounded-lg shadow-lg overflow-hidden"
+      >
         <div className="flex items-center justify-center gap-28 bg-white p-6 relative py-12">
           {steps?.map((step, index) => (
             <div
@@ -153,7 +162,8 @@ const DynamicStepper = ({ data }) => {
               onClick={() => {
                 handleStepClick(index);
                 setIsNote(true);
-              }}>
+              }}
+            >
               <button
                 className={`focus:outline-none flex items-center justify-center relative w-12 h-12 rounded-full ${
                   step?.status === "complete"
@@ -161,7 +171,8 @@ const DynamicStepper = ({ data }) => {
                     : step.status === "problem"
                     ? "bg-red-400 text-white"
                     : "bg-gray-400 text-white"
-                }`}>
+                }`}
+              >
                 <div>{step?.order}</div>
               </button>
               <div className="absolute top-14 w-fit text-center whitespace-nowrap">
@@ -189,14 +200,16 @@ const DynamicStepper = ({ data }) => {
           <div className="relative flex flex-col items-center">
             <button
               className="focus:outline-none flex items-center justify-center relative w-12 h-12 rounded-full bg-gray-400 text-white"
-              onClick={() => setHandleStepModal(true)}>
+              onClick={() => setHandleStepModal(true)}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-6">
+                className="size-6"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -221,7 +234,8 @@ const DynamicStepper = ({ data }) => {
                     : steps?.[activeStep]?.status === "problem"
                     ? "text-red-600"
                     : "text-gray-600"
-                }`}>
+                }`}
+              >
                 {steps?.[activeStep]?.status === "complete"
                   ? "Complete"
                   : steps?.[activeStep]?.status === "problem"
@@ -231,14 +245,16 @@ const DynamicStepper = ({ data }) => {
               ({isNote ? "Notes" : "Problems"})
               <button
                 onClick={() => setIsQuestionModalOpen(true)}
-                className={`ms-4 p-2 bg-gray-300 text-black rounded-md shadow-lg hover:bg-black hover:text-white focus:outline-none`}>
+                className={`ms-4 p-2 bg-gray-300 text-black rounded-md shadow-lg hover:bg-black hover:text-white focus:outline-none`}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-4">
+                  className="size-4"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -250,14 +266,16 @@ const DynamicStepper = ({ data }) => {
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setIsNote(true)}
-                className={`px-4 py-2 bg-[#009F69] text-white rounded-md shadow-lg `}>
+                className={`px-4 py-2 bg-[#009F69] text-white rounded-md shadow-lg `}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6">
+                  className="size-6"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -267,14 +285,16 @@ const DynamicStepper = ({ data }) => {
               </button>
               <button
                 onClick={() => setIsNote(false)}
-                className={`px-4 py-2 bg-[#d72525] text-white rounded-md shadow-lg`}>
+                className={`px-4 py-2 bg-[#d72525] text-white rounded-md shadow-lg`}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6">
+                  className="size-6"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -292,12 +312,14 @@ const DynamicStepper = ({ data }) => {
               .map((item) => (
                 <div
                   key={item?._id}
-                  className="border-2 border-gray-300 rounded-md overflow-hidden">
+                  className="border-2 border-gray-300 rounded-md overflow-hidden"
+                >
                   <div className="flex items-center justify-between">
                     <p
                       className={`font-semibold text-white w-fit p-1 px-6 rounded-br-md ${
                         isNote ? "bg-green-600" : "bg-red-600"
-                      }`}>
+                      }`}
+                    >
                       {item.title}
                     </p>
                     <div className="flex items-center gap-2 transform -translate-x-2 translate-y-2">
@@ -306,14 +328,16 @@ const DynamicStepper = ({ data }) => {
                           setEditQuestionData(item);
                           setIsEditQuestionModal(true);
                         }}
-                        className={`p-2 bg-gray-200 rounded-md shadow-md hover:bg-gray-300 focus:outline-none`}>
+                        className={`p-2 bg-gray-200 rounded-md shadow-md hover:bg-gray-300 focus:outline-none`}
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"
                           strokeWidth={1.5}
                           stroke="currentColor"
-                          className="size-4">
+                          className="size-4"
+                        >
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -326,14 +350,16 @@ const DynamicStepper = ({ data }) => {
                           setDeleteQuestionData(item);
                           setIsConfirmDeleteModalOpen(true);
                         }}
-                        className={`p-2 bg-gray-200 rounded-md shadow-md hover:bg-gray-300 focus:outline-none`}>
+                        className={`p-2 bg-gray-200 rounded-md shadow-md hover:bg-gray-300 focus:outline-none`}
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"
                           strokeWidth={1.5}
                           stroke="currentColor"
-                          className="size-4">
+                          className="size-4"
+                        >
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"

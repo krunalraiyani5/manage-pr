@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,6 +17,7 @@ export default function RootLayout({ children }) {
         <div className="fixed top-0 right-0 left-0">
           <Navbar />
         </div>
+        <Toaster position="top-right" />
         {children}
       </body>
     </html>

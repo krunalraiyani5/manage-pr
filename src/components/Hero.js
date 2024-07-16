@@ -6,6 +6,7 @@ import AddCardModal from "./AddCardModal";
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import EditCardModal from "./EditCardModal";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const Hero = ({ data }) => {
   const router = useRouter();
@@ -145,6 +146,7 @@ const Hero = ({ data }) => {
       const data = await response.json();
       setCardList(data?.data);
     } catch (error) {
+      toast.error("Something want wrong");
       console.error("Fetch error:", error);
     }
   }
@@ -181,9 +183,10 @@ const Hero = ({ data }) => {
         },
         body: JSON.stringify({ name, logo }),
       });
-
+      toast.success("Added successfully");
       getData();
     } catch (error) {
+      toast.error("Something want wrong");
       console.error("Fetch error:", error);
     }
   };
@@ -200,10 +203,11 @@ const Hero = ({ data }) => {
             },
           }
         );
-
+        toast.success("Delete successfully");
         const data = await response.json();
         getData();
       } catch (error) {
+        toast.error("Something want wrong");
         console.error("Fetch error:", error);
       }
       setIsConfirmDeleteModalOpen(false);
@@ -223,10 +227,11 @@ const Hero = ({ data }) => {
             body: JSON.stringify({ name: updatedName, logo: updatedLogo }),
           }
         );
-
+        toast.success("Update successfully");
         const data = await response.json();
         getData();
       } catch (error) {
+        toast.error("Something want wrong");
         console.error("Fetch error:", error);
       }
       setIsEditModalOpen(false);

@@ -5,6 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import AddCardModal from "./AddCardModal";
 import EditCardModal from "./EditCardModal";
+import toast from "react-hot-toast";
 
 const CompanyGrid = ({ data }) => {
   const router = useRouter();
@@ -68,6 +69,7 @@ const CompanyGrid = ({ data }) => {
       const data = await response.json();
       setCardList(data?.data);
     } catch (error) {
+      toast.error("Something want wrong");
       console.error("Fetch error:", error);
     }
   };
@@ -84,9 +86,10 @@ const CompanyGrid = ({ data }) => {
         },
         body: JSON.stringify({ moduleId, name, logo }),
       });
-
+      toast.success("Added successfully");
       getData();
     } catch (error) {
+      toast.error("Something want wrong");
       console.error("Fetch error:", error);
     }
   };
@@ -103,10 +106,11 @@ const CompanyGrid = ({ data }) => {
             },
           }
         );
-
+        toast.success("Delete successfully");
         const data = await response.json();
         getData();
       } catch (error) {
+        toast.error("Something want wrong");
         console.error("Fetch error:", error);
       }
       setIsConfirmDeleteModalOpen(false);
@@ -136,10 +140,11 @@ const CompanyGrid = ({ data }) => {
             body: JSON.stringify({ name: updatedName, logo: updatedLogo }),
           }
         );
-
+        toast.success("Update successfully");
         const data = await response.json();
         getData();
       } catch (error) {
+        toast.error("Something want wrong");
         console.error("Fetch error:", error);
       }
       setIsEditModalOpen(false);
