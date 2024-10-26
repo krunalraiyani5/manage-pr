@@ -7,6 +7,7 @@ import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import EditCardModal from "./EditCardModal";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { isAuth } from "@/utils/checkAuth";
 
 const Hero = ({ data }) => {
   const router = useRouter();
@@ -249,39 +250,43 @@ const Hero = ({ data }) => {
       <div className="hero-subtitle text-xl">Compare your data</div>
 
       <div className="absolute top-20 right-4 flex flex-col items-center">
-        <button
-          onClick={toggleMenu}
-          className="bg-[#009F69] text-white p-4 rounded-full shadow-md hover:bg-[#007f55] focus:outline-none z-10"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="size-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-            />
-          </svg>
-        </button>
-        <div className="relative flex flex-col items-center mt-8 space-y-2">
+        {isAuth() ? (
           <button
-            onClick={openAddModal}
-            className="menu-item bg-gray-200 px-4 py-2 rounded-md shadow-md hover:bg-gray-300 focus:outline-none opacity-0 transform -translate-y-5"
-            ref={(el) => (menuItemsRef.current[0] = el)}
-          >
+            onClick={toggleMenu}
+            className="bg-[#009F69] text-white p-4 rounded-full shadow-md hover:bg-[#007f55] focus:outline-none z-10">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="size-6"
-            >
+              className="size-6">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+          </button>
+        ) : (
+          <button
+            className="bg-[#009F69] text-white p-2 px-4 rounded-full shadow-md hover:bg-[#007f55] focus:outline-none z-10"
+            onClick={() => router.push("/login")}>
+            Login
+          </button>
+        )}
+        <div className="relative flex flex-col items-center mt-8 space-y-2">
+          <button
+            onClick={openAddModal}
+            className="menu-item bg-gray-200 px-4 py-2 rounded-md shadow-md hover:bg-gray-300 focus:outline-none opacity-0 transform -translate-y-5"
+            ref={(el) => (menuItemsRef.current[0] = el)}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-6">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -292,8 +297,7 @@ const Hero = ({ data }) => {
           <button
             onClick={toggleEditMode}
             className="menu-item bg-gray-200 px-4 py-2 rounded-md shadow-md hover:bg-gray-300 focus:outline-none opacity-0 transform -translate-y-5"
-            ref={(el) => (menuItemsRef.current[1] = el)}
-          >
+            ref={(el) => (menuItemsRef.current[1] = el)}>
             {editMode ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -301,8 +305,7 @@ const Hero = ({ data }) => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-6"
-              >
+                className="size-6">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -316,8 +319,7 @@ const Hero = ({ data }) => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-6"
-              >
+                className="size-6">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -329,8 +331,7 @@ const Hero = ({ data }) => {
           <button
             onClick={toggleDeleteMode}
             className="menu-item bg-gray-200 px-4 py-2 rounded-md shadow-md hover:bg-gray-300 focus:outline-none opacity-0 transform -translate-y-5"
-            ref={(el) => (menuItemsRef.current[2] = el)}
-          >
+            ref={(el) => (menuItemsRef.current[2] = el)}>
             {deleteMode ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -338,8 +339,7 @@ const Hero = ({ data }) => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-6"
-              >
+                className="size-6">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -353,8 +353,7 @@ const Hero = ({ data }) => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-6"
-              >
+                className="size-6">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -376,8 +375,7 @@ const Hero = ({ data }) => {
               router.push(
                 `/${formatRouteName(card?.name)}?modultId=${card?._id}`
               );
-            }}
-          >
+            }}>
             <div className="bg-white h-36 w-36 rounded-lg shadow-lg p-4 flex flex-col items-center justify-center relative cursor-pointer transform transition-transform hover:!scale-105">
               <img
                 src={card.logo}
@@ -392,16 +390,14 @@ const Hero = ({ data }) => {
                         e.stopPropagation();
                         openEditModal(card);
                       }}
-                      className="bg-blue-500 text-white p-1 rounded-full shadow-md hover:bg-blue-700 focus:outline-none"
-                    >
+                      className="bg-blue-500 text-white p-1 rounded-full shadow-md hover:bg-blue-700 focus:outline-none">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="size-4"
-                      >
+                        className="size-4">
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -416,16 +412,14 @@ const Hero = ({ data }) => {
                         e.stopPropagation();
                         openConfirmDeleteModal(card);
                       }}
-                      className="bg-red-500 text-white p-1 rounded-full shadow-md hover:bg-red-700 focus:outline-none"
-                    >
+                      className="bg-red-500 text-white p-1 rounded-full shadow-md hover:bg-red-700 focus:outline-none">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="size-4"
-                      >
+                        className="size-4">
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"

@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
           <Navbar />
           <Breadcrumb />
         </div>
-        <div className="bg-gray-200 h-screen">{children}</div>
+        <div className="bg-gray-200 h-screen px-8">{children}</div>
       </body>
     </html>
   );

@@ -169,6 +169,8 @@ const CompanyGrid = ({ data }) => {
     );
   }, [isGridView]);
 
+  console.log(data, "-----");
+
   return (
     <section className="bg-gray-200">
       <div>
@@ -178,16 +180,14 @@ const CompanyGrid = ({ data }) => {
               !isGridView ? "opacity-50 cursor-default" : ""
             }`}
             onClick={() => setIsGridView(true)}
-            disabled={isGridView}
-          >
+            disabled={isGridView}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="size-6"
-            >
+              className="size-6">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -200,16 +200,14 @@ const CompanyGrid = ({ data }) => {
               isGridView ? "opacity-50 cursor-default" : ""
             }`}
             onClick={() => setIsGridView(false)}
-            disabled={!isGridView}
-          >
+            disabled={!isGridView}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="size-6"
-            >
+              className="size-6">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -220,16 +218,14 @@ const CompanyGrid = ({ data }) => {
           {/* menu button */}
           <button
             onClick={toggleMenu}
-            className={`px-4 py-2 text-white rounded-md shadow-lg bg-[#009F69] hover:bg-[#007f55] z-20`}
-          >
+            className={`px-4 py-2 text-white rounded-md shadow-lg bg-[#009F69] hover:bg-[#007f55] z-20`}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="size-6"
-            >
+              className="size-6">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -242,22 +238,19 @@ const CompanyGrid = ({ data }) => {
           <div
             className={`absolute flex flex-col items-center mt-5 space-y-2 duration-300 delay-300 transform ${
               isMenuOpen ? "translate-x-16" : "translate-x-0"
-            }`}
-          >
+            }`}>
             <button
               onClick={openAddModal}
               className={`menu-item bg-gray-200 px-4 py-2 rounded-md shadow-md hover:bg-gray-300 focus:outline-none transition-all duration-300 z-10 transform ${
                 isMenuOpen ? "translate-y-7" : "-translate-y-5 opacity-0"
-              } `}
-            >
+              } `}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-6"
-              >
+                className="size-6">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -269,8 +262,7 @@ const CompanyGrid = ({ data }) => {
               onClick={toggleEditMode}
               className={`menu-item bg-gray-200 px-4 py-2 rounded-md shadow-md hover:bg-gray-300 focus:outline-none transition-all duration-300 transform z-10 ${
                 isMenuOpen ? "translate-y-8" : "-translate-y-20 opacity-0"
-              }`}
-            >
+              }`}>
               {editMode ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -278,8 +270,7 @@ const CompanyGrid = ({ data }) => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6"
-                >
+                  className="size-6">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -293,8 +284,7 @@ const CompanyGrid = ({ data }) => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6"
-                >
+                  className="size-6">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -307,8 +297,7 @@ const CompanyGrid = ({ data }) => {
               onClick={toggleDeleteMode}
               className={`menu-item bg-gray-200 px-4 py-2 rounded-md shadow-md hover:bg-gray-300 focus:outline-none transform transition-all duration-300 z-10 ${
                 isMenuOpen ? "translate-y-9" : "-translate-y-28 opacity-0"
-              }`}
-            >
+              }`}>
               {deleteMode ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -316,8 +305,7 @@ const CompanyGrid = ({ data }) => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6"
-                >
+                  className="size-6">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -331,8 +319,7 @@ const CompanyGrid = ({ data }) => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6"
-                >
+                  className="size-6">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -348,8 +335,7 @@ const CompanyGrid = ({ data }) => {
           ref={gridRef}
           className={`grid ${
             isGridView ? "grid-cols-6" : "grid-cols-2 sm:grid-cols-2"
-          } gap-8 mt-8`}
-        >
+          } gap-8 mt-8`}>
           {cardList?.map((company, index) => (
             <div
               key={index}
@@ -366,15 +352,13 @@ const CompanyGrid = ({ data }) => {
               } transform transition-transform hover:scale-105 ${
                 isGridView ? "mb-8" : ""
               }`}
-              style={{ transitionDuration: "0.3s" }}
-            >
+              style={{ transitionDuration: "0.3s" }}>
               {/* Left Side: Company Image and Details */}
               <div className={`p-4 ${isGridView ? "" : "sm:w-2/3"}`}>
                 <div
                   className={`w-full ${
                     isGridView ? "h-32" : "h-52"
-                  } object-cover`}
-                >
+                  } object-cover`}>
                   <img
                     src={company?.logo}
                     alt={`Company ${company?.name}`}
@@ -393,16 +377,14 @@ const CompanyGrid = ({ data }) => {
                         e.stopPropagation();
                         openEditModal(company);
                       }}
-                      className="bg-blue-500 text-white p-1 rounded-full shadow-md hover:bg-blue-700 focus:outline-none"
-                    >
+                      className="bg-blue-500 text-white p-1 rounded-full shadow-md hover:bg-blue-700 focus:outline-none">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="size-6"
-                      >
+                        className="size-6">
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -417,16 +399,14 @@ const CompanyGrid = ({ data }) => {
                         e.stopPropagation();
                         openConfirmDeleteModal(company);
                       }}
-                      className="bg-red-500 text-white p-1 rounded-full shadow-md hover:bg-red-700 focus:outline-none"
-                    >
+                      className="bg-red-500 text-white p-1 rounded-full shadow-md hover:bg-red-700 focus:outline-none">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="size-6"
-                      >
+                        className="size-6">
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -448,8 +428,7 @@ const CompanyGrid = ({ data }) => {
                     {company?.steppers?.map((milestone) => (
                       <div
                         key={milestone._id}
-                        className="flex items-center space-x-2"
-                      >
+                        className="flex items-center space-x-2">
                         <div
                           className={`h-4 w-4 rounded-full ${
                             milestone?.status === "complete"
