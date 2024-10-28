@@ -25,7 +25,15 @@ const DynamicStepper = ({ data }) => {
     useState(false);
 
   const containerRef = useRef(null);
-  const auth = isAuth();
+  const [auth, setAuth] = useState(false);
+
+  useEffect(() => {
+    const fetchAuthStatus = async () => {
+      const authenticated = await isAuth();
+      setAuth(authenticated);
+    };
+    fetchAuthStatus();
+  }, []);
 
   async function getData() {
     try {

@@ -11,6 +11,15 @@ import { isAuth } from "@/utils/checkAuth";
 
 const Hero = ({ data }) => {
   const router = useRouter();
+  const [auth, setAuth] = useState(false);
+
+  useEffect(() => {
+    const fetchAuthStatus = async () => {
+      const authenticated = await isAuth();
+      setAuth(authenticated);
+    };
+    fetchAuthStatus();
+  }, []);
 
   const [editMode, setEditMode] = useState(false);
   const [deleteMode, setDeleteMode] = useState(false);
@@ -250,7 +259,7 @@ const Hero = ({ data }) => {
       <div className="hero-subtitle text-xl">Compare your data</div>
 
       <div className="absolute top-20 right-4 flex flex-col items-center">
-        {isAuth() ? (
+        {auth ? (
           <button
             onClick={toggleMenu}
             className="bg-[#009F69] text-white p-4 rounded-full shadow-md hover:bg-[#007f55] focus:outline-none z-10">
